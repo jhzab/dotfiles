@@ -28,8 +28,11 @@ Bundle 'klen/python-mode'
 Bundle 'kien/ctrlp.vim'
 Bundle 'w0ng/vim-hybrid'
 Bundle 'Lokaltog/powerline'
+"Bundle 'bling/vim-airline'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'goldfeld/vim-seek'
+" like the one above, but with two chars
+Bundle 'justinmk/vim-sneak'
 " following is for snippets only
 Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'tomtom/tlib_vim'
@@ -41,6 +44,10 @@ Bundle 'tpope/vim-haml'
 Bundle 'othree/html5.vim'
 "Bundle 'Blackrush/vim-gocode'
 Bundle 'fatih/vim-go'
+Bundle 'derekwyatt/vim-scala'
+Bundle 'zhaocai/GoldenView.Vim'
+Bundle 'Shougo/unite.vim'
+
 
 let g:vundle_default_git_proto = 'git'
 
@@ -79,7 +86,7 @@ set rtp+=/home/gothos/.vim/bundle/powerline/powerline/bindings/vim
 let g:Powerline_symbols = 'fancy'
 
 " open nerdtree
-map <C-n> :NERDTreeToggle<CR>
+noremap <Leader>n :NERDTreeToggle<CR>
 " auto close vim if nerdtree is the last open window
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
