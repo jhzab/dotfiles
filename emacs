@@ -8,13 +8,18 @@
     (eval-print-last-sexp)))
 
 (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
-(setq pkgs '("anzu" "autopair" "cl-lib" "color-theme" "ctable" "dash" "deferred" "el-get" "epc" "epl" "f" "flycheck" "flyspell" "fuzzy" "git-modes" "jedi" "magit" "pkg-info" "popup" "python-environment" "rainbow-delimiters" "rich-minority" "s" "smart-mode-line" "smex" "solarized-emacs" "writegood" "sbt-mode" "scala-mode2" "mu4e" "projectile" "pymacs" "direx" "yasnippet" "yasnippets" "rainbow-delimiters" "ensime" "company-mode" "ag" "auctex" "pandoc-mode" "reftex" "markdown-mode"))
+(setq pkgs '("anzu" "autopair" "cl-lib" "color-theme" "ctable" "dash" "deferred" "el-get" "epc" "epl" "f" "flycheck" "flyspell" "fuzzy" "git-modes" "jedi" "magit" "pkg-info" "popup" "python-environment" "rainbow-delimiters" "rich-minority" "s" "smart-mode-line" "smex" "solarized-emacs" "writegood" "sbt-mode" "scala-mode2" "projectile" "pymacs" "direx" "yasnippet" "yasnippets" "rainbow-delimiters" "ensime" "company-mode" "ag" "auctex" "pandoc-mode" "reftex" "markdown-mode" "flx" "git-gutter"))
 (el-get 'sync pkgs)
 
 (require 'ido)
 (ido-mode t)
 (setq ido-enable-flex-matching t
             ido-use-virtual-buffers t)
+
+(require 'flx-ido)
+(flx-ido-mode 1)
+
+;(setq ido-use-faces nil)
 
 ;; Standard Jedi.el setting
 (add-hook 'python-mode-hook 'jedi:setup)
@@ -57,6 +62,8 @@
 (require 'autopair)
 ;(autopair-global-mode)
 (add-hook 'prog-mode-hook '(lambda () (autopair-mode)))
+
+(add-hook 'prog-mode-hook 'git-gutter-mode)
 
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
@@ -101,19 +108,19 @@
 (add-hook 'prog-mode-hook (lambda()
     (setq show-trailing-whitespace t)))
 
-(require 'mu4e)
+;(require 'mu4e)
 
-(setq mu4e-maildir "/home/gothos/Maildir")
-(setq mu4e-sent-folder   "/INBOX.Sent"
-      mu4e-drafts-folder "/INBOX.Drafts"
-      mu4e-trash-folder  "/INBOX.Trash")
-(setq mu4e-get-mail-command "offlineimap"
-      mu4e-update-interval 600
-      mu4e-headers-auto-update t
-      user-mail-address "jan@jhz.name"
-      user-full-name "Jan-Hendrik Zab"
-      mu4e-html2text-command "/usr/bin/html2text"
-      )
+;(setq mu4e-maildir "/home/gothos/Maildir")
+;(setq mu4e-sent-folder   "/INBOX.Sent"
+;      mu4e-drafts-folder "/INBOX.Drafts"
+;      mu4e-trash-folder  "/INBOX.Trash")
+;(setq mu4e-get-mail-command "offlineimap"
+;      mu4e-update-interval 600
+;      mu4e-headers-auto-update t
+;      user-mail-address "jan@jhz.name"
+;      user-full-name "Jan-Hendrik Zab"
+;      mu4e-html2text-command "/usr/bin/html2text"
+;      )
 
 ;; spell check
 (add-hook 'mu4e-compose-mode-hook
@@ -148,11 +155,19 @@
 ; projectile
 (add-hook 'prog-mode-hook 'projectile-mode)
 (setq projectile-enable-caching t)
-
-; (require 'helm-config)
+(global-set-key (kbd "C-x f") 'projectile-find-file)
 
 ; use ibuffer to switch buffers, much nicer!
-(global-set-key (kbd "C-x C-b") 'ibuffer)
+(global-set-key (kbd "C-x C-b") 'ibuffer-other-window)
+
+;; sort buffers by name
+(setq-default ibuffer-default-sorting-mode 'alphabetic)
+
+;; hide empty filter groups
+(setq ibuffer-show-empty-filter-groups nil)
+
+;; show human readable sizes in dired
+(setq dired-listing-switches "-alh")
 
 ; pandoc stuff
 (add-hook 'markdown-mode-hook 'turn-on-pandoc)
@@ -165,6 +180,14 @@
 (add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+
+;Flyspell considers that a word repeated twice is an error
+(setq flyspell-doublon-as-error-flag nil)
+
+(add-hook 'markdown-mode-hook
+	  (lambda ()
+	    ;; enable flyspell
+	    (flyspell-mode 1)))
 
 (provide '.emacs)
 ;;; .emacs ends here
