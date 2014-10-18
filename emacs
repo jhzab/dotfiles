@@ -166,5 +166,8 @@
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 
+;Flyspell considers that a word repeated twice is an error
+(setq flyspell-doublon-as-error-flag nil)
+
 (provide '.emacs)
 ;;; .emacs ends here
