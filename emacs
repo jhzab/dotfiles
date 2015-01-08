@@ -9,7 +9,7 @@
     (eval-print-last-sexp)))
 
 (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
-(setq pkgs '("anzu" "autopair" "cl-lib" "color-theme" "ctable" "dash" "deferred" "el-get" "epc" "epl" "f" "flycheck" "flyspell" "fuzzy" "git-modes" "jedi" "magit" "pkg-info" "popup" "python-environment" "rainbow-delimiters" "rich-minority" "s" "smart-mode-line" "smex" "solarized-emacs" "writegood" "sbt-mode" "scala-mode2" "projectile" "pymacs" "direx" "yasnippet" "yasnippets" "rainbow-delimiters" "ensime" "company-mode" "ag" "auctex" "pandoc-mode" "reftex" "markdown-mode" "flx" "git-gutter"))
+(setq pkgs '("anzu" "autopair" "cl-lib" "color-theme" "ctable" "dash" "deferred" "el-get" "epc" "epl" "f" "flycheck" "flyspell" "fuzzy" "git-modes" "jedi" "magit" "pkg-info" "popup" "python-environment" "rainbow-delimiters" "rich-minority" "s" "smart-mode-line" "smex" "solarized-emacs" "writegood" "sbt-mode" "scala-mode2" "projectile" "pymacs" "direx" "yasnippet" "yasnippets" "rainbow-delimiters" "ensime" "company-mode" "ag" "auctex" "pandoc-mode" "reftex" "markdown-mode" "flx" "git-gutter" "project-explorer"))
 (el-get 'sync pkgs)
 
 (require 'ido)
@@ -195,6 +195,7 @@
 	    (flyspell-mode 1)))
 
 (setq scroll-step 1)
+(scroll-bar-mode -1)
 
 (provide '.emacs)
 ;;; .emacs ends here
