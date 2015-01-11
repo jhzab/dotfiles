@@ -9,7 +9,7 @@
     (eval-print-last-sexp)))
 
 (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
-(setq pkgs '("anzu" "autopair" "cl-lib" "color-theme" "ctable" "dash" "deferred" "el-get" "epc" "epl" "f" "flycheck" "flyspell" "fuzzy" "git-modes" "jedi" "magit" "pkg-info" "popup" "python-environment" "rainbow-delimiters" "rich-minority" "s" "smart-mode-line" "smex" "solarized-emacs" "writegood" "sbt-mode" "scala-mode2" "projectile" "pymacs" "direx" "yasnippet" "yasnippets" "rainbow-delimiters" "ensime" "company-mode" "ag" "auctex" "pandoc-mode" "reftex" "markdown-mode" "flx" "git-gutter" "project-explorer"))
+(setq pkgs '("anzu" "cl-lib" "color-theme" "ctable" "dash" "deferred" "el-get" "epc" "epl" "f" "flycheck" "flyspell" "fuzzy" "git-modes" "jedi" "magit" "pkg-info" "popup" "python-environment" "rainbow-delimiters" "rich-minority" "s" "smart-mode-line" "smex" "solarized-emacs" "writegood" "sbt-mode" "scala-mode2" "projectile" "pymacs" "direx" "yasnippet" "yasnippets" "rainbow-delimiters" "ensime" "company-mode" "ag" "auctex" "pandoc-mode" "reftex" "markdown-mode" "flx" "git-gutter" "project-explorer"))
 (el-get 'sync pkgs)
 
 (require 'ido)
@@ -113,17 +113,17 @@
 
 ;(require 'mu4e)
 
-;(setq mu4e-maildir "/home/gothos/Maildir")
-;(setq mu4e-sent-folder   "/INBOX.Sent"
-;      mu4e-drafts-folder "/INBOX.Drafts"
-;      mu4e-trash-folder  "/INBOX.Trash")
-;(setq mu4e-get-mail-command "offlineimap"
-;      mu4e-update-interval 600
-;      mu4e-headers-auto-update t
-;      user-mail-address "jan@jhz.name"
-;      user-full-name "Jan-Hendrik Zab"
-;      mu4e-html2text-command "/usr/bin/html2text"
-;      )
+(setq mu4e-maildir "/home/gothos/Maildir")
+(setq mu4e-sent-folder   "/INBOX.Sent"
+      mu4e-drafts-folder "/INBOX.Drafts"
+      mu4e-trash-folder  "/INBOX.Trash")
+(setq mu4e-get-mail-command "offlineimap"
+      mu4e-update-interval 600
+      mu4e-headers-auto-update t
+      user-mail-address "jan@jhz.name"
+      user-full-name "Jan-Hendrik Zab"
+      mu4e-html2text-command "/usr/bin/html2text"
+      )
 
 ;; spell check
 (add-hook 'mu4e-compose-mode-hook
