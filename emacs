@@ -9,7 +9,7 @@
     (eval-print-last-sexp)))
 
 (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
-(setq pkgs '("anzu" "cl-lib" "color-theme" "ctable" "dash" "deferred" "el-get" "epc" "epl" "f" "flycheck" "flyspell" "fuzzy" "git-modes" "jedi" "magit" "pkg-info" "popup" "python-environment" "rainbow-delimiters" "rich-minority" "s" "smart-mode-line" "smex" "solarized-emacs" "writegood" "sbt-mode" "scala-mode2" "projectile" "pymacs" "direx" "yasnippet" "yasnippets" "rainbow-delimiters" "ensime" "company-mode" "ag" "auctex" "pandoc-mode" "reftex" "markdown-mode" "flx" "git-gutter" "project-explorer"))
+(setq pkgs '("anzu" "cl-lib" "color-theme" "ctable" "dash" "deferred" "el-get" "epc" "epl" "f" "flycheck" "flyspell" "fuzzy" "git-modes" "jedi" "magit" "pkg-info" "popup" "python-environment" "rainbow-delimiters" "rich-minority" "s" "smart-mode-line" "smex" "solarized-emacs" "writegood" "sbt-mode" "scala-mode2" "projectile" "pymacs" "direx" "yasnippet" "yasnippets" "rainbow-delimiters" "ensime" "company-mode" "ag" "auctex" "pandoc-mode" "reftex" "markdown-mode" "flx" "git-gutter" "project-explorer" "smartparens"))
 (el-get 'sync pkgs)
 
 (require 'ido)
@@ -60,9 +60,14 @@
       org-agenda-todo-ignore-scheduled t
       org-agenda-todo-ignore-deadlines t)
 
-(require 'autopair)
+;(require 'autopair)
 ;(autopair-global-mode)
-(add-hook 'prog-mode-hook '(lambda () (autopair-mode)))
+;(add-hook 'prog-mode-hook '(lambda () (autopair-mode)))
+
+(smartparens-global-mode t)
+
+;; highlights matching pairs
+(show-smartparens-global-mode t)
 
 (add-hook 'prog-mode-hook 'git-gutter-mode)
 
@@ -77,7 +82,7 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("6e25454c105f795282f543f738dc7c8fbe06cfe5852546a9d42908553b83460d" "6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f" "7a00b0710bb2e400d33a925f94b1cd8cfa2281f864ac9506b9046703e0045d66" "862d97751547ab8f90613b30e87a6f8772401018ce77427eb6d9a4e0fa4ca7ee" "c7471ce3bb42defac344b3ecfca74228731b5ab20f804fd1deb8e65dddeab26a" "bd115791a5ac6058164193164fd1245ac9dc97207783eae036f0bfc9ad9670e0" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "e16a771a13a202ee6e276d06098bc77f008b73bbac4d526f160faa2d76c1dd0e" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
+    ("0eebf69ceadbbcdd747713f2f3f839fe0d4a45bd0d4d9f46145e40878fc9b098" "6e25454c105f795282f543f738dc7c8fbe06cfe5852546a9d42908553b83460d" "6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f" "7a00b0710bb2e400d33a925f94b1cd8cfa2281f864ac9506b9046703e0045d66" "862d97751547ab8f90613b30e87a6f8772401018ce77427eb6d9a4e0fa4ca7ee" "c7471ce3bb42defac344b3ecfca74228731b5ab20f804fd1deb8e65dddeab26a" "bd115791a5ac6058164193164fd1245ac9dc97207783eae036f0bfc9ad9670e0" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "e16a771a13a202ee6e276d06098bc77f008b73bbac4d526f160faa2d76c1dd0e" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
  '(inhibit-startup-screen t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -114,9 +119,9 @@
 ;(require 'mu4e)
 
 (setq mu4e-maildir "/home/gothos/Maildir")
-(setq mu4e-sent-folder   "/INBOX.Sent"
-      mu4e-drafts-folder "/INBOX.Drafts"
-      mu4e-trash-folder  "/INBOX.Trash")
+(setq mu4e-sent-folder   "/.Sent"
+      mu4e-drafts-folder "/.Drafts"
+      mu4e-trash-folder  "/.Trash")
 (setq mu4e-get-mail-command "offlineimap"
       mu4e-update-interval 600
       mu4e-headers-auto-update t
@@ -161,7 +166,7 @@
 (global-set-key (kbd "C-x f") 'projectile-find-file)
 
 ; use ibuffer to switch buffers, much nicer!
-(global-set-key (kbd "C-x C-b") 'ibuffer-other-window)
+(global-set-key (kbd "C-x b") 'ibuffer-other-window)
 (setq ibuffer-always-show-last-buffer t)
 (setq ibuffer-view-ibuffer t)
 
@@ -195,7 +200,7 @@
 	    (flyspell-mode 1)))
 
 (setq scroll-step 1)
-(scroll-bar-mode -1)
+;(scroll-bar-mode -1)
 
 (provide '.emacs)
 ;;; .emacs ends here
