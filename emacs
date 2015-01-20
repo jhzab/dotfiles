@@ -9,7 +9,7 @@
     (eval-print-last-sexp)))
 
 (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
-(setq pkgs '("anzu" "autopair" "cl-lib" "color-theme" "ctable" "dash" "deferred" "el-get" "epc" "epl" "f" "flycheck" "flyspell" "fuzzy" "git-modes" "jedi" "magit" "pkg-info" "popup" "python-environment" "rainbow-delimiters" "rich-minority" "s" "smart-mode-line" "smex" "solarized-emacs" "writegood" "sbt-mode" "scala-mode2" "projectile" "pymacs" "direx" "yasnippet" "yasnippets" "rainbow-delimiters" "ensime" "company-mode" "ag" "auctex" "pandoc-mode" "reftex" "markdown-mode" "flx" "git-gutter" "project-explorer"))
+(setq pkgs '("anzu" "cl-lib" "color-theme" "ctable" "dash" "deferred" "el-get" "epc" "epl" "f" "flycheck" "flyspell" "fuzzy" "git-modes" "jedi" "magit" "pkg-info" "popup" "python-environment" "rainbow-delimiters" "rich-minority" "s" "smart-mode-line" "smex" "solarized-emacs" "writegood" "sbt-mode" "scala-mode2" "projectile" "pymacs" "direx" "yasnippet" "yasnippets" "rainbow-delimiters" "ensime" "company-mode" "ag" "auctex" "pandoc-mode" "reftex" "markdown-mode" "flx" "git-gutter" "project-explorer" "smartparens"))
 (el-get 'sync pkgs)
 
 (require 'ido)
@@ -39,7 +39,6 @@
 (delete-selection-mode t)
 (transient-mark-mode t)
 (setq x-select-enable-clipboard t)
-
 ;; no backup files
 (setq auto-save-default nil)
 (setq make-backup-files nil)
@@ -60,7 +59,10 @@
       org-agenda-todo-ignore-scheduled t
       org-agenda-todo-ignore-deadlines t)
 
-(require 'autopair)
+(smartparens-global-mode t)
+
+;; highlights matching pairs
+(show-smartparens-global-mode t)
 ;(autopair-global-mode)
 (add-hook 'prog-mode-hook '(lambda () (autopair-mode)))
 
