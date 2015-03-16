@@ -9,7 +9,7 @@
     (eval-print-last-sexp)))
 
 (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
-(setq pkgs '("anzu" "cl-lib" "color-theme" "ctable" "dash" "deferred" "el-get" "epc" "epl" "f" "flycheck" "flyspell" "fuzzy" "git-modes" "jedi" "magit" "pkg-info" "popup" "python-environment" "rainbow-delimiters" "rich-minority" "s" "smart-mode-line" "smex" "solarized-emacs" "writegood" "sbt-mode" "scala-mode2" "projectile" "pymacs" "direx" "yasnippet" "yasnippets" "rainbow-delimiters" "ensime" "company-mode" "ag" "pandoc-mode" "reftex" "markdown-mode" "flx" "git-gutter" "project-explorer" "smartparens"))
+(setq pkgs '("anzu" "cl-lib" "color-theme" "ctable" "dash" "deferred" "el-get" "epc" "epl" "f" "flycheck" "flyspell" "fuzzy" "git-modes" "jedi" "magit" "pkg-info" "popup" "python-environment" "rainbow-delimiters" "rich-minority" "s" "smart-mode-line" "smex" "solarized-emacs" "writegood" "sbt-mode" "scala-mode2" "projectile" "pymacs" "direx" "yasnippet" "yasnippets" "rainbow-delimiters" "ensime" "company-mode" "ag" "pandoc-mode" "reftex" "markdown-mode" "flx" "git-gutter" "project-explorer" "smartparens" "visual-regexp"))
 (el-get 'sync pkgs)
 
 (require 'ido)
@@ -86,7 +86,16 @@
  ;; If there is more than one, they won't work right.
  '(default ((t (:family "Ubuntu Mono" :foundry "unknown" :slant normal :weight normal :height 113 :width normal)))))
 
+; text replace: https://github.com/syohex/emacs-anzu
 (global-anzu-mode +1)
+(global-set-key (kbd "M-%") 'anzu-query-replace)
+(global-set-key (kbd "C-M-%") 'anzu-query-replace-regexp)
+(custom-set-variables
+ '(anzu-mode-lighter "")
+ '(anzu-deactivate-region t)
+ '(anzu-search-threshold 1000)
+ '(anzu-replace-to-string-separator " => "))
+
 
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/monokai-emacs/")
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
@@ -101,7 +110,8 @@
 
 ;; Don't clutter the emacs screen
 (tool-bar-mode -1)
-;(menu-bar-mode -1)
+(menu-bar-mode -1)
+(scroll-bar-mode -1)
 
 ;(require 'whitespace-mode)
 ;(add-hook 'prog-mode-hook 'whitespace-mode)
@@ -110,8 +120,6 @@
 (setq load-prefer-newer t)
 (add-hook 'prog-mode-hook (lambda()
     (setq show-trailing-whitespace t)))
-
-;(require 'mu4e)
 
 (setq mu4e-maildir "/home/gothos/Maildir")
 (setq mu4e-sent-folder   "/.Sent"
@@ -195,7 +203,11 @@
 	    (flyspell-mode 1)))
 
 (setq scroll-step 1)
-;(scroll-bar-mode -1)
+
+(define-key global-map (kbd "C-c r") 'vr/replace)
+(define-key global-map (kbd "C-c q") 'vr/query-replace)
+;; if you use multiple-cursors, this is for you:
+(define-key global-map (kbd "C-c m") 'vr/mc-mark)
 
 (provide '.emacs)
 ;;; .emacs ends here
