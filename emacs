@@ -9,7 +9,7 @@
     (eval-print-last-sexp)))
 
 (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
-(setq pkgs '("anzu" "cl-lib" "color-theme" "ctable" "dash" "deferred" "el-get" "epc" "epl" "f" "flycheck" "flyspell" "fuzzy" "git-modes" "jedi" "magit" "pkg-info" "popup" "python-environment" "rainbow-delimiters" "rich-minority" "s" "smart-mode-line" "smex" "solarized-emacs" "writegood" "sbt-mode" "scala-mode2" "projectile" "pymacs" "direx" "yasnippet" "yasnippets" "rainbow-delimiters" "ensime" "company-mode" "ag" "pandoc-mode" "reftex" "markdown-mode" "flx" "git-gutter" "project-explorer" "smartparens" "visual-regexp"))
+(setq pkgs '("anzu" "cl-lib" "color-theme" "ctable" "dash" "deferred" "el-get" "epc" "epl" "f" "flycheck" "flyspell" "fuzzy" "git-modes" "jedi" "magit" "pkg-info" "popup" "python-environment" "rainbow-delimiters" "rich-minority" "s" "smart-mode-line" "smex" "solarized-emacs" "writegood" "sbt-mode" "scala-mode2" "projectile" "pymacs" "direx" "yasnippet" "yasnippets" "rainbow-delimiters" "ensime" "company-mode" "ag" "pandoc-mode" "reftex" "markdown-mode" "flx" "git-gutter" "project-explorer" "smartparens" "visual-regexp" "neotree" "ace-window" "swiper"))
 (el-get 'sync pkgs)
 
 (require 'ido)
@@ -59,11 +59,6 @@
       org-agenda-todo-ignore-scheduled t
       org-agenda-todo-ignore-deadlines t)
 
-(smartparens-global-mode t)
-
-;; highlights matching pairs
-(show-smartparens-global-mode t)
-
 (add-hook 'prog-mode-hook 'git-gutter-mode)
 
 (global-set-key (kbd "M-x") 'smex)
@@ -75,9 +70,13 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(anzu-deactivate-region t)
+ '(anzu-mode-lighter "")
+ '(anzu-replace-to-string-separator " => ")
+ '(anzu-search-threshold 1000)
  '(custom-safe-themes
    (quote
-    ("0eebf69ceadbbcdd747713f2f3f839fe0d4a45bd0d4d9f46145e40878fc9b098" "6e25454c105f795282f543f738dc7c8fbe06cfe5852546a9d42908553b83460d" "6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f" "7a00b0710bb2e400d33a925f94b1cd8cfa2281f864ac9506b9046703e0045d66" "862d97751547ab8f90613b30e87a6f8772401018ce77427eb6d9a4e0fa4ca7ee" "c7471ce3bb42defac344b3ecfca74228731b5ab20f804fd1deb8e65dddeab26a" "bd115791a5ac6058164193164fd1245ac9dc97207783eae036f0bfc9ad9670e0" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "e16a771a13a202ee6e276d06098bc77f008b73bbac4d526f160faa2d76c1dd0e" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
+    ("8cbc768e758839c2305421ba21fafcc3364331336d544a49c746d200ba55d8b5" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "0eebf69ceadbbcdd747713f2f3f839fe0d4a45bd0d4d9f46145e40878fc9b098" "6e25454c105f795282f543f738dc7c8fbe06cfe5852546a9d42908553b83460d" "6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f" "7a00b0710bb2e400d33a925f94b1cd8cfa2281f864ac9506b9046703e0045d66" "862d97751547ab8f90613b30e87a6f8772401018ce77427eb6d9a4e0fa4ca7ee" "c7471ce3bb42defac344b3ecfca74228731b5ab20f804fd1deb8e65dddeab26a" "bd115791a5ac6058164193164fd1245ac9dc97207783eae036f0bfc9ad9670e0" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "e16a771a13a202ee6e276d06098bc77f008b73bbac4d526f160faa2d76c1dd0e" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
  '(inhibit-startup-screen t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -86,23 +85,17 @@
  ;; If there is more than one, they won't work right.
  '(default ((t (:family "Ubuntu Mono" :foundry "unknown" :slant normal :weight normal :height 113 :width normal)))))
 
-; text replace: https://github.com/syohex/emacs-anzu
-(global-anzu-mode +1)
-(global-set-key (kbd "M-%") 'anzu-query-replace)
-(global-set-key (kbd "C-M-%") 'anzu-query-replace-regexp)
-(custom-set-variables
- '(anzu-mode-lighter "")
- '(anzu-deactivate-region t)
- '(anzu-search-threshold 1000)
- '(anzu-replace-to-string-separator " => "))
-
-
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/monokai-emacs/")
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
 (load-theme 'monokai)
 
+; auto add closing parens
+(smartparens-global-mode t)
+(show-smartparens-global-mode t)
+
+; colored parens and stuff
 (require 'rainbow-delimiters)
-(add-hook 'python-mode-hook 'rainbow-delimiters-mode)
+(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 
 (require 'smart-mode-line)
 (sml/setup)
@@ -146,20 +139,15 @@
 (if (not server-mode)
     (server-start nil t))
 
+; scala stuff
 (require 'scala-mode2)
-
 (add-to-list 'load-path (concat user-emacs-directory "el-get/ensime"))
 (require 'ensime)
 (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
 
-(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
-
+; don't use it so far :(
 (require 'yasnippet)
 (yas-global-mode 1)
-
-; conifgure how to split screen
-;(setq split-height-threshold nil)
-;(setq split-width-threshold 0)
 
 (add-hook 'after-init-hook 'global-company-mode)
 
@@ -194,7 +182,7 @@
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 
-;Flyspell considers that a word repeated twice is an error
+; Flyspell considers that a word repeated twice is an error
 (setq flyspell-doublon-as-error-flag nil)
 
 (add-hook 'markdown-mode-hook
@@ -204,10 +192,22 @@
 
 (setq scroll-step 1)
 
+; text replace: https://github.com/syohex/emacs-anzu
+(global-anzu-mode +1)
+(global-set-key (kbd "M-%") 'anzu-query-replace)
+(global-set-key (kbd "C-M-%") 'anzu-query-replace-regexp)
+
 (define-key global-map (kbd "C-c r") 'vr/replace)
 (define-key global-map (kbd "C-c q") 'vr/query-replace)
-;; if you use multiple-cursors, this is for you:
-(define-key global-map (kbd "C-c m") 'vr/mc-mark)
+; if you use multiple-cursors, this is for you:
+; (define-key global-map (kbd "C-c m") 'vr/mc-mark)
+
+; ace-window configuration
+; https://github.com/abo-abo/ace-window
+(global-set-key (kbd "M-p") 'ace-window)
+
+; swiper is a replacement for isearch
+(global-set-key "\C-s" 'swiper)
 
 (provide '.emacs)
 ;;; .emacs ends here
