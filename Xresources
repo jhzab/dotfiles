@@ -1,0 +1,11 @@
+URxvt.font: xft:Ubuntu Mono:size=11
+URxvt.scrollBar: false
+
+URxvt*inheritPixmap: true
+;URxvt*transparent: true
+;URxvt*shading: 15
+URxvt.letterSpace: -1
+URxvt*termName: rxvt-unicode
+URxvt.perl-ext-common: default,matcher,tabbed
+
+*background: linen
