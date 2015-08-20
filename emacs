@@ -36,15 +36,18 @@
   auto-save-default nil
   make-backup-files nil
   column-number-mode t
+  line-number-mode t
   whitespace-line-column 80
   load-prefer-newer t
   ibuffer-always-show-last-buffer t
   ibuffer-view-ibuffer t
-;; hide empty filter groups
+  ;; hide empty filter groups
   ibuffer-show-empty-filter-groups nil
-;; show human readable sizes in dired
+  ;; show human readable sizes in dired
   dired-listing-switches "-alh"
   scroll-step 1
+  ;; Less jumpy arrow key scrolling
+  scroll-conservatively 1
   )
 
 ;; sort buffers by name
@@ -168,5 +171,6 @@
 
 ; don't handle version control stuff in emacs
 (setq vc-handled-backends nil)
+(remove-hook 'find-file-hooks 'vc-find-file-hook)
 
 (provide '.emacs)
