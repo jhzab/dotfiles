@@ -12,26 +12,18 @@
 (setq pkgs '("fold-this" "anzu" "cl-lib" "color-theme" "ctable" "dash" "deferred" "el-get" "epc" "epl" "f" "flycheck" "flyspell" "fuzzy" "git-modes" "jedi" "magit" "pkg-info" "popup" "python-environment" "rainbow-delimiters" "rich-minority" "s" "smart-mode-line" "smex" "solarized-emacs" "writegood" "sbt-mode" "scala-mode2" "projectile" "pymacs" "direx" "yasnippet" "yasnippets" "rainbow-delimiters" "ensime" "company-mode" "ag" "pandoc-mode" "reftex" "markdown-mode" "flx" "git-gutter" "project-explorer" "smartparens" "visual-regexp" "neotree" "ace-window" "swiper"))
 (el-get 'sync pkgs)
 
-(require 'ido)
 (ido-mode t)
 (setq ido-enable-flex-matching t
             ido-use-virtual-buffers t)
 
-(require 'flx-ido)
 (flx-ido-mode 1)
-
-;(setq ido-use-faces nil)
 
 ;; Standard Jedi.el setting
 (add-hook 'python-mode-hook 'jedi:setup)
 (setq jedi:complete-on-dot t)
 
-;; Type:
-;;     M-x el-get-install RET jedi RET
-;;     M-x jedi:install-server RET
-;; Then open Python file.
-
 (add-hook 'after-init-hook #'global-flycheck-mode)
+;(add-hook 'after-init-hook 'sml/setup)
 
 (global-set-key "\C-c\C-gg" 'writegood-grade-level)
 (global-set-key "\C-c\C-ge" 'writegood-reading-ease)
@@ -66,15 +58,8 @@
 ;; This is your old M-x.
 (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:family "Ubuntu Mono" :foundry "unknown" :slant normal :weight normal :height 116 :width normal)))))
-
-(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/monokai-emacs/")
-(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/cyberpunk-theme.el/")
+;(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/monokai-emacs/")
+;(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/cyberpunk-theme.el/")
 (load-theme 'leuven)
 
 ; auto add closing parens
@@ -85,8 +70,6 @@
 (require 'rainbow-delimiters)
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 
-(setq sml/theme 'light)
-(sml/setup)
 (setq column-number-mode t)
 
 ;; Don't clutter the emacs screen
@@ -128,9 +111,9 @@
     (server-start nil t))
 
 ; scala stuff
-(require 'scala-mode2)
-(add-to-list 'load-path (concat user-emacs-directory "el-get/ensime"))
-(require 'ensime)
+;(require 'scala-mode2)
+;(add-to-list 'load-path (concat user-emacs-directory "el-get/ensime"))
+;(require 'ensime)
 (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
 
 ; don't use it so far :(
@@ -199,14 +182,10 @@
 
 (setq ensime-sem-high-enabled-p nil)
 
+(setq custom-file "~/.emacs-custom.el")
+(load custom-file 'noerror)
+
+; don't handle version control stuff in emacs
+(setq vc-handled-backends nil)
+
 (provide '.emacs)
-;;; .emacs ends here
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   (quote
-    ("a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
- '(inhibit-startup-screen t))

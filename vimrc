@@ -1,66 +1,56 @@
 set nocompatible               " be iMproved
 filetype off                   " required!
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 
 " let Vundle manage Vundle
 " required! 
-Bundle 'gmarik/vundle'
+Plugin 'VundleVim/Vundle.vim'
 
-" My Bundles here:
+" My Plugins here:
 "
 " original repos on github
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-abolish'
-Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'tpope/vim-rails.git'
-Bundle 'mileszs/ack.vim'
-Bundle 'tpope/vim-surround'
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'scrooloose/nerdtree'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-abolish'
+Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+Plugin 'vim-ruby/vim-ruby'
+Plugin 'tpope/vim-rails.git'
+Plugin 'mileszs/ack.vim'
+Plugin 'tpope/vim-surround'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'scrooloose/nerdtree'
 " vim-scripts repos
-Bundle 'L9'
-Bundle 'FuzzyFinder'
-Bundle 'scrooloose/syntastic'
-Bundle 'klen/python-mode'
-Bundle 'kien/ctrlp.vim'
-Bundle 'w0ng/vim-hybrid'
-"Bundle 'Lokaltog/powerline'
-Bundle 'bling/vim-airline'
-Bundle 'Lokaltog/vim-easymotion'
-Bundle 'goldfeld/vim-seek'
+Plugin 'L9'
+Plugin 'FuzzyFinder'
+Plugin 'scrooloose/syntastic'
+Plugin 'klen/python-mode'
+Plugin 'kien/ctrlp.vim'
+Plugin 'w0ng/vim-hybrid'
+"Plugin 'Lokaltog/powerline'
+Plugin 'bling/vim-airline'
+Plugin 'Lokaltog/vim-easymotion'
+Plugin 'goldfeld/vim-seek'
 " like the one above, but with two chars
-Bundle 'justinmk/vim-sneak'
+Plugin 'justinmk/vim-sneak'
 " following is for snippets only
-Bundle 'MarcWeber/vim-addon-mw-utils'
-Bundle 'tomtom/tlib_vim'
-Bundle 'garbas/vim-snipmate'
-Bundle 'honza/vim-snippets'
+Plugin 'MarcWeber/vim-addon-mw-utils'
+Plugin 'tomtom/tlib_vim'
+Plugin 'garbas/vim-snipmate'
+Plugin 'honza/vim-snippets'
 " awesome completion with syntastic integration
-Bundle 'Valloric/YouCompleteMe'
-Bundle 'tpope/vim-haml'
-Bundle 'othree/html5.vim'
-"Bundle 'Blackrush/vim-gocode'
-Bundle 'fatih/vim-go'
-Bundle 'derekwyatt/vim-scala'
-Bundle 'zhaocai/GoldenView.Vim'
-Bundle 'Shougo/unite.vim'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'tpope/vim-haml'
+Plugin 'othree/html5.vim'
+"Plugin 'Blackrush/vim-gocode'
+Plugin 'fatih/vim-go'
+Plugin 'derekwyatt/vim-scala'
+Plugin 'zhaocai/GoldenView.Vim'
+Plugin 'Shougo/unite.vim'
 
-
-let g:vundle_default_git_proto = 'git'
+call vundle#end()
 
 filetype plugin indent on     " required!
-"
-" Brief help
-" :BundleList          - list configured bundles
-" :BundleInstall(!)    - install(update) bundles
-" :BundleSearch(!) foo - search(or refresh cache first) for foo
-" :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
-"
-" see :h vundle for more details or wiki for FAQ
-" NOTE: comments after Bundle command are not allowed..
 
 filetype on
 syntax on
@@ -80,10 +70,7 @@ set wildignore+=tags
 set winaltkeys=no
 
 let g:hybrid_use_Xresources = 1
-colorscheme hybrid
-
-set rtp+=/home/gothos/.vim/bundle/powerline/powerline/bindings/vim
-let g:Powerline_symbols = 'fancy'
+colorscheme default
 
 " open nerdtree
 noremap <Leader>n :NERDTreeToggle<CR>
