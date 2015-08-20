@@ -23,6 +23,7 @@
 (setq jedi:complete-on-dot t)
 
 (add-hook 'after-init-hook #'global-flycheck-mode)
+(add-hook 'after-init-hook 'global-company-mode)
 ;(add-hook 'after-init-hook 'sml/setup)
 
 (global-set-key "\C-c\C-gg" 'writegood-grade-level)
@@ -30,10 +31,24 @@
 
 (delete-selection-mode t)
 (transient-mark-mode t)
-(setq x-select-enable-clipboard t)
-;; no backup files
-(setq auto-save-default nil)
-(setq make-backup-files nil)
+(setq
+  x-select-enable-clipboard t
+  auto-save-default nil
+  make-backup-files nil
+  column-number-mode t
+  whitespace-line-column 80
+  load-prefer-newer t
+  ibuffer-always-show-last-buffer t
+  ibuffer-view-ibuffer t
+;; hide empty filter groups
+  ibuffer-show-empty-filter-groups nil
+;; show human readable sizes in dired
+  dired-listing-switches "-alh"
+  scroll-step 1
+  )
+
+;; sort buffers by name
+(setq-default ibuffer-default-sorting-mode 'alphabetic)
 
 ;; Always use "y" for "yes"
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -55,11 +70,10 @@
 
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
-;; This is your old M-x.
+; This is your old M-x.
 (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 
 ;(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/monokai-emacs/")
-;(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/cyberpunk-theme.el/")
 (load-theme 'leuven)
 
 ; auto add closing parens
@@ -70,18 +84,11 @@
 (require 'rainbow-delimiters)
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 
-(setq column-number-mode t)
-
 ;; Don't clutter the emacs screen
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
 
-;(require 'whitespace-mode)
-;(add-hook 'prog-mode-hook 'whitespace-mode)
-;(setq whitespace-style (quote (trailing-whitespace trailing)))
-(setq whitespace-line-column 80)
-(setq load-prefer-newer t)
 (add-hook 'prog-mode-hook (lambda()
     (setq show-trailing-whitespace t)))
 
@@ -110,17 +117,8 @@
 (if (not server-mode)
     (server-start nil t))
 
-; scala stuff
-;(require 'scala-mode2)
-;(add-to-list 'load-path (concat user-emacs-directory "el-get/ensime"))
-;(require 'ensime)
 (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
 
-; don't use it so far :(
-;(require 'yasnippet)
-;(yas-global-mode 1)
-
-(add-hook 'after-init-hook 'global-company-mode)
 
 ; projectile
 (add-hook 'prog-mode-hook 'projectile-mode)
@@ -129,22 +127,10 @@
 
 ; use ibuffer to switch buffers, much nicer!
 (global-set-key (kbd "C-x b") 'ibuffer-other-window)
-(setq ibuffer-always-show-last-buffer t)
-(setq ibuffer-view-ibuffer t)
-
-;; sort buffers by name
-(setq-default ibuffer-default-sorting-mode 'alphabetic)
-
-;; hide empty filter groups
-(setq ibuffer-show-empty-filter-groups nil)
-
-;; show human readable sizes in dired
-(setq dired-listing-switches "-alh")
 
 ; pandoc stuff
 (add-hook 'markdown-mode-hook 'turn-on-pandoc)
 (add-hook 'pandoc-mode-hook 'pandoc-load-default-settings)
-
 (setq reftex-default-bibliography '("/home/gothos/src/reftex.bib"))
 
 (autoload 'markdown-mode "markdown-mode"
@@ -161,7 +147,6 @@
 	    ;; enable flyspell
 	    (flyspell-mode 1)))
 
-(setq scroll-step 1)
 
 ; text replace: https://github.com/syohex/emacs-anzu
 (global-anzu-mode +1)
@@ -170,8 +155,6 @@
 
 (define-key global-map (kbd "C-c r") 'vr/replace)
 (define-key global-map (kbd "C-c q") 'vr/query-replace)
-; if you use multiple-cursors, this is for you:
-; (define-key global-map (kbd "C-c m") 'vr/mc-mark)
 
 ; ace-window configuration
 ; https://github.com/abo-abo/ace-window
@@ -179,8 +162,6 @@
 
 ; swiper is a replacement for isearch
 (global-set-key "\C-s" 'swiper)
-
-(setq ensime-sem-high-enabled-p nil)
 
 (setq custom-file "~/.emacs-custom.el")
 (load custom-file 'noerror)
