@@ -165,6 +165,7 @@
 
 ; swiper is a replacement for isearch
 (global-set-key "\C-s" 'swiper)
+(global-set-key (kbd "C-c j") 'avy-goto-word-or-subword-1)
 
 (setq custom-file "~/.emacs-custom.el")
 (load custom-file 'noerror)
