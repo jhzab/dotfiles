@@ -35,6 +35,8 @@ Plug 'derekwyatt/vim-scala'
 Plug 'zhaocai/GoldenView.Vim'
 Plug 'Shougo/unite.vim'
 Plug 'ensime/ensime-vim'
+Plug 'Shougo/deoplete.nvim'
+Plug 'eagletmt/neco-ghc'
 
 call plug#end()
 
@@ -91,3 +93,7 @@ let g:pymode_rope_complete_on_dot = 0
 
 " seek
 let g:seek_enable_jumps = 1
+
+" Disable haskell-vim omnifunc, this is done by necoghc
+let g:haskellmode_completion_ghc = 0
+autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
