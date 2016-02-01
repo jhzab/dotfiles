@@ -37,6 +37,7 @@ Plug 'Shougo/unite.vim'
 Plug 'ensime/ensime-vim'
 Plug 'Shougo/deoplete.nvim'
 Plug 'eagletmt/neco-ghc'
+Plug 'eagletmt/ghcmod-vim'
 
 call plug#end()
 
