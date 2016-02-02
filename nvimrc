@@ -17,7 +17,8 @@ Plug 'klen/python-mode'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'w0ng/vim-hybrid'
 "Plugin 'Lokaltog/powerline'
-Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'easymotion/vim-easymotion'
 "Plug 'goldfeld/vim-seek'
 " like the one above, but with two chars
@@ -38,6 +39,8 @@ Plug 'ensime/ensime-vim'
 Plug 'Shougo/deoplete.nvim'
 Plug 'eagletmt/neco-ghc'
 Plug 'eagletmt/ghcmod-vim'
+Plug 'altercation/vim-colors-solarized'
+Plug 'airblade/vim-gitgutter'
 
 call plug#end()
 
@@ -59,8 +62,11 @@ set wildmode=longest:full,full
 set wildignore+=tags
 set winaltkeys=no
 
-let g:hybrid_use_Xresources = 1
-colorscheme default
+set background=dark
+" let g:solarized_contrast = "high"
+let g:solarized_visibility = "high"
+let g:solarized_termtrans = 1
+colorscheme solarized
 
 " open nerdtree
 noremap <Leader>n :NERDTreeToggle<CR>
@@ -98,3 +104,5 @@ let g:seek_enable_jumps = 1
 " Disable haskell-vim omnifunc, this is done by necoghc
 let g:haskellmode_completion_ghc = 0
 autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+
+let g:airline#extensions#tabline#enabled = 1
