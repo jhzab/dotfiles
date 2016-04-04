@@ -41,6 +41,7 @@ Plug 'eagletmt/neco-ghc'
 Plug 'eagletmt/ghcmod-vim'
 Plug 'altercation/vim-colors-solarized'
 Plug 'airblade/vim-gitgutter'
+Plug 'crusoexia/vim-monokai'
 
 call plug#end()
 
@@ -66,7 +67,7 @@ set background=dark
 " let g:solarized_contrast = "high"
 let g:solarized_visibility = "high"
 let g:solarized_termtrans = 1
-colorscheme solarized
+colorscheme monokai
 
 " open nerdtree
 noremap <Leader>n :NERDTreeToggle<CR>
