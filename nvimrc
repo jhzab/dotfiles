@@ -64,9 +64,6 @@ set wildignore+=tags
 set winaltkeys=no
 
 set background=dark
-" let g:solarized_contrast = "high"
-let g:solarized_visibility = "high"
-let g:solarized_termtrans = 1
 colorscheme monokai
 
 " open nerdtree
@@ -90,8 +87,6 @@ autocmd FileType cpp set shiftwidth=4
 
 let g:ycm_autoclose_preview_window_after_completion=1
 
-set guifont="Ubuntu Mono derivative Powerline 10"
-
 " start NERDtree if no files/arguments were specified
 autocmd vimenter * if !argc() | NERDTree | endif
 " close vim if NERDtree is last open window
@@ -107,3 +102,14 @@ let g:haskellmode_completion_ghc = 0
 autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 
 let g:airline#extensions#tabline#enabled = 1
+
+" CtrlP
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/](\.(git|hg|svn)|\_site)$',
+  \ 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg)$',
+\}
+
+let g:ctrlp_working_path_mode = 'r'
+
+nmap <leader>p :CtrlP<cr>
+nmap <leader>pb :CtrlPBuffer<cr>
