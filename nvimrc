@@ -9,14 +9,12 @@ Plug 'mileszs/ack.vim'
 Plug 'tpope/vim-surround'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
-" vim-scripts repos
-Plug 'L9'
+lug 'L9'
 Plug 'FuzzyFinder'
 Plug 'scrooloose/syntastic'
 Plug 'klen/python-mode'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'w0ng/vim-hybrid'
-"Plugin 'Lokaltog/powerline'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'easymotion/vim-easymotion'
@@ -29,7 +27,7 @@ Plug 'tomtom/tlib_vim'
 Plug 'garbas/vim-snipmate'
 Plug 'honza/vim-snippets'
 " awesome completion with syntastic integration
-"Plug 'Valloric/YouCompleteMe'
+Plug 'Valloric/YouCompleteMe'
 Plug 'tpope/vim-haml'
 Plug 'othree/html5.vim'
 Plug 'derekwyatt/vim-scala'
@@ -42,6 +40,7 @@ Plug 'eagletmt/ghcmod-vim'
 Plug 'altercation/vim-colors-solarized'
 Plug 'airblade/vim-gitgutter'
 Plug 'crusoexia/vim-monokai'
+Plug 'Shougo/vimproc.vim'
 
 call plug#end()
 
@@ -72,18 +71,15 @@ noremap <Leader>n :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
 " syntastic
-"let g:syntastic_auto_loc_list=1
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 
+let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_enable_signs=1
-
-let g:EclimCompletionMethod = 'omnifunc'
-
-" C++ code formatting options
-autocmd FileType cpp set textwidth=80
-autocmd FileType cpp set formatoptions+=cro
-autocmd FileType cpp set tabstop=4
-autocmd FileType cpp set softtabstop=4
-autocmd FileType cpp set shiftwidth=4
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 
 let g:ycm_autoclose_preview_window_after_completion=1
 
