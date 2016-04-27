@@ -9,7 +9,6 @@ Plug 'mileszs/ack.vim'
 Plug 'tpope/vim-surround'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
-" vim-scripts repos
 Plug 'L9'
 Plug 'FuzzyFinder'
 Plug 'scrooloose/syntastic'
@@ -28,7 +27,7 @@ Plug 'tomtom/tlib_vim'
 Plug 'garbas/vim-snipmate'
 Plug 'honza/vim-snippets'
 " awesome completion with syntastic integration
-"Plug 'Valloric/YouCompleteMe'
+Plug 'Valloric/YouCompleteMe'
 Plug 'tpope/vim-haml'
 Plug 'othree/html5.vim'
 Plug 'derekwyatt/vim-scala'
@@ -42,6 +41,7 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'airblade/vim-gitgutter'
 Plug 'crusoexia/vim-monokai'
 Plug 'aloiscochard/sarsi'
+Plug 'Shougo/vimproc.vim'
 
 call plug#end()
 
@@ -64,9 +64,6 @@ set wildignore+=tags
 set winaltkeys=no
 
 set background=dark
-" let g:solarized_contrast = "high"
-let g:solarized_visibility = "high"
-let g:solarized_termtrans = 1
 colorscheme monokai
 
 " open nerdtree
@@ -77,22 +74,17 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTree
 let g:deoplete#enable_at_startup = 1
 
 " syntastic
-"let g:syntastic_auto_loc_list=1
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 
+let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_enable_signs=1
-
-let g:EclimCompletionMethod = 'omnifunc'
-
-" C++ code formatting options
-autocmd FileType cpp set textwidth=80
-autocmd FileType cpp set formatoptions+=cro
-autocmd FileType cpp set tabstop=4
-autocmd FileType cpp set softtabstop=4
-autocmd FileType cpp set shiftwidth=4
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 
 let g:ycm_autoclose_preview_window_after_completion=1
-
-set guifont="Ubuntu Mono derivative Powerline 10"
 
 " start NERDtree if no files/arguments were specified
 autocmd vimenter * if !argc() | NERDTree | endif
@@ -109,5 +101,15 @@ let g:haskellmode_completion_ghc = 0
 autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 
 let g:airline#extensions#tabline#enabled = 1
-call rpcstart('sarsi-nvim') 
 
+" CtrlP
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/](\.(git|hg|svn)|\_site)$',
+  \ 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg)$',
+\}
+
+let g:ctrlp_working_path_mode = 'r'
+
+nmap <leader>p :CtrlP<cr>
+nmap <leader>pb :CtrlPBuffer<cr>
+call rpcstart('sarsi-nvim') 
