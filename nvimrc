@@ -16,7 +16,6 @@ Plug 'scrooloose/syntastic'
 Plug 'klen/python-mode'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'w0ng/vim-hybrid'
-"Plugin 'Lokaltog/powerline'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'easymotion/vim-easymotion'
@@ -42,6 +41,7 @@ Plug 'eagletmt/ghcmod-vim'
 Plug 'altercation/vim-colors-solarized'
 Plug 'airblade/vim-gitgutter'
 Plug 'crusoexia/vim-monokai'
+Plug 'aloiscochard/sarsi'
 
 call plug#end()
 
@@ -73,6 +73,8 @@ colorscheme monokai
 noremap <Leader>n :NERDTreeToggle<CR>
 " auto close vim if nerdtree is the last open window
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
+let g:deoplete#enable_at_startup = 1
 
 " syntastic
 "let g:syntastic_auto_loc_list=1
@@ -107,3 +109,5 @@ let g:haskellmode_completion_ghc = 0
 autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 
 let g:airline#extensions#tabline#enabled = 1
+call rpcstart('sarsi-nvim') 
+
