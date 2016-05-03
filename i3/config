@@ -32,8 +32,8 @@ floating_modifier $mod
 # bindsym XF86AudioMute exec pactl set-sink-mute 1 toggle # mute sound
 
 # Sreen brightness controls
-# bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
-# bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
+bindsym XF86MonBrightnessUp exec xbacklight -inc 15 # increase screen brightness
+bindsym XF86MonBrightnessDown exec xbacklight -dec 15 # decrease screen brightness
 
 bindsym $hyper+a [title=" - Atom$"] focus
 bindsym $hyper+c [title=" - Google Chrome$"] focus
@@ -51,8 +51,8 @@ bindsym $mod+Shift+q kill
 
 # start rofi (a program launcher)
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --dmenu="dmenu -f -i -fn 'Droid Sans Mono-8' -l 10 -sb '#ff7030' -sf '#ffffff' -nb '#2d2d2d' -nf '#c0c0c0'"
-bindsym $mod+d exec i3-dmenu-desktop --dmenu="rofi -dmenu -p '\$ '"
-bindsym $mod+x exec rofi -show window -p '\# '
+bindsym $mod+d exec i3-dmenu-desktop --dmenu="rofi -dmenu -p '\$ ' -font 'Source Code Pro 22'"
+bindsym $mod+x exec rofi -show window -p '\# ' -font "Source Code Pro 22"
 
 # change focus
 bindsym $mod+j focus left
@@ -158,7 +158,7 @@ bindsym $mod+r mode "resize"
 bar {
         position top
         status_command i3blocks
-        font pango:Fira Code 10, FontAwesome 8
+        font pango:Fira Code 13, FontAwesome 10
         strip_workspace_numbers yes
         colors {
                 background #2b2b2b
@@ -180,8 +180,5 @@ client.unfocused        #2b2b2b #404040 #aaaaaa #2b2b2b
 client.urgent           #900000 #900000 #ffffff #2b2b2b
 
 # Launch on startup
-#exec --no-startup-id /usr/libexec/gnome-settings-daemon&
+exec --no-startup-id /usr/libexec/gnome-settings-daemon&
 exec --no-startup-id xrdb -load ~/.Xresources
-#exec --no-startup-id xcompmgr -nC
-#exec --no-startup-id xmodmap ~/.Xmodmap
-#exec --no-startup-id feh --bg-scale ~/Pictures/wallhaven-246108.jpg
