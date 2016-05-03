@@ -37,9 +37,11 @@ Plug 'ensime/ensime-vim'
 Plug 'Shougo/deoplete.nvim'
 Plug 'eagletmt/neco-ghc'
 Plug 'eagletmt/ghcmod-vim'
+Plug 'neovimhaskell/haskell-vim'
 Plug 'altercation/vim-colors-solarized'
 Plug 'airblade/vim-gitgutter'
 Plug 'crusoexia/vim-monokai'
+Plug 'aloiscochard/sarsi'
 Plug 'Shougo/vimproc.vim'
 
 call plug#end()
@@ -69,6 +71,8 @@ colorscheme monokai
 noremap <Leader>n :NERDTreeToggle<CR>
 " auto close vim if nerdtree is the last open window
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
+let g:deoplete#enable_at_startup = 1
 
 " syntastic
 set statusline+=%#warningmsg#
@@ -109,3 +113,4 @@ let g:ctrlp_working_path_mode = 'r'
 
 nmap <leader>p :CtrlP<cr>
 nmap <leader>pb :CtrlPBuffer<cr>
+call rpcstart('sarsi-nvim') 
