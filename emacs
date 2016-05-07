@@ -1,7 +1,7 @@
 (setq custom-file "~/.emacs-custom.el")
 (load custom-file 'noerror)
 
-(setq package-list '(ensime magit helm flyspell flycheck neotree avy ace-window scala-mode2 git-gutter monokai-theme anzu flx-ido swiper smart-mode-line ample-theme))
+(setq package-list '(ensime magit flyspell flycheck neotree avy ace-window scala-mode2 git-gutter monokai-theme anzu flx-ido swiper smart-mode-line ample-theme projectile smex ido-ubiquitous))
 
 (require 'package) ;; You might already have this line
 (add-to-list 'package-archives
@@ -19,8 +19,6 @@
 (dolist (package package-list)
   (unless (package-installed-p package)
     (package-install package)))
-
-(helm-mode 1)
 
 (setq sml/theme 'dark)
 (sml/setup)
@@ -77,3 +75,28 @@
 ; swiper is a replacement for isearch
 (global-set-key "\C-s" 'swiper)
 (global-set-key (kbd "C-c j") 'avy-goto-word-or-subword-1)
+
+; avy
+(global-set-key (kbd "C-:") 'avy-goto-char)
+
+; ido
+(ido-mode 1)
+(ido-everywhere 1)
+
+;ido-flx
+(flx-ido-mode 1)
+;(setq ido-enable-flex-matching t)
+(setq ido-use-faces nil)
+
+; ido-ubiquitious
+(ido-ubiquitous-mode 1)
+
+;smex
+(global-set-key (kbd "M-x") 'smex)
+
+;flyspell
+
+(dolist (hook '(text-mode-hook))
+  (add-hook hook (lambda () (flyspell-mode 1))))
+(dolist (hook '(change-log-mode-hook log-edit-mode-hook))
+  (add-hook hook (lambda () (flyspell-mode -1))))
