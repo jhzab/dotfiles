@@ -1,4 +1,7 @@
-(setq package-list '(ensime magit helm flyspell flycheck neotree avy ace-window scala-mode2 git-gutter monokai-theme))
+(setq custom-file "~/.emacs-custom.el")
+(load custom-file 'noerror)
+
+(setq package-list '(ensime magit helm flyspell flycheck neotree avy ace-window scala-mode2 git-gutter monokai-theme anzu flx-ido swiper smart-mode-line ample-theme))
 
 (require 'package) ;; You might already have this line
 (add-to-list 'package-archives
@@ -18,6 +21,9 @@
     (package-install package)))
 
 (helm-mode 1)
+
+(setq sml/theme 'dark)
+(sml/setup)
 
 (global-set-key [f8] 'neotree-toggle)
 
@@ -71,6 +77,3 @@
 ; swiper is a replacement for isearch
 (global-set-key "\C-s" 'swiper)
 (global-set-key (kbd "C-c j") 'avy-goto-word-or-subword-1)
-
-(setq custom-file "~/.emacs-custom.el")
-(load custom-file 'noerror)
