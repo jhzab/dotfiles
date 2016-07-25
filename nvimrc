@@ -43,6 +43,10 @@ Plug 'airblade/vim-gitgutter'
 Plug 'crusoexia/vim-monokai'
 Plug 'aloiscochard/sarsi'
 Plug 'Shougo/vimproc.vim'
+Plug 'reedes/vim-pencil'
+Plug 'junegunn/limelight.vim'
+Plug 'reedes/vim-wordy'
+Plug 'reedes/vim-lexical'
 
 call plug#end()
 
@@ -114,3 +118,11 @@ let g:ctrlp_working_path_mode = 'r'
 nmap <leader>p :CtrlP<cr>
 nmap <leader>pb :CtrlPBuffer<cr>
 call rpcstart('sarsi-nvim') 
+
+augroup writing
+  autocmd!
+  autocmd FileType markdown,mkd call pencil#init()
+                            \ | call lexical#init()
+  autocmd FileType text call pencil#init()
+                            \ | call lexical#init()
+augroup END
