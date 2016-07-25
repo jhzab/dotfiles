@@ -1,7 +1,7 @@
 (setq custom-file "~/.emacs-custom.el")
 (load custom-file 'noerror)
 
-(setq package-list '(ensime magit flyspell flycheck neotree avy ace-window scala-mode2 git-gutter monokai-theme anzu flx-ido swiper smart-mode-line ample-theme projectile smex ido-ubiquitous haskell-mode intero))
+(setq package-list '(ensime magit flyspell flycheck neotree avy ace-window scala-mode git-gutter monokai-theme anzu flx-ido swiper smart-mode-line ample-theme projectile smex ido-ubiquitous haskell-mode intero))
 
 (require 'package) ;; You might already have this line
 (add-to-list 'package-archives
