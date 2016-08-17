@@ -47,6 +47,7 @@ Plug 'reedes/vim-pencil'
 Plug 'junegunn/limelight.vim'
 Plug 'reedes/vim-wordy'
 Plug 'reedes/vim-lexical'
+Plug 'reedes/vim-colors-pencil'
 
 call plug#end()
 
@@ -68,8 +69,8 @@ set wildmode=longest:full,full
 set wildignore+=tags
 set winaltkeys=no
 
-set background=dark
-colorscheme monokai
+set background=light
+colorscheme pencil
 
 " open nerdtree
 noremap <Leader>n :NERDTreeToggle<CR>
