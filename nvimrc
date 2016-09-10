@@ -48,6 +48,7 @@ Plug 'junegunn/limelight.vim'
 Plug 'reedes/vim-wordy'
 Plug 'reedes/vim-lexical'
 Plug 'reedes/vim-colors-pencil'
+Plug 'lervag/vimtex'
 
 call plug#end()
 
@@ -118,7 +119,6 @@ let g:ctrlp_working_path_mode = 'r'
 
 nmap <leader>p :CtrlP<cr>
 nmap <leader>pb :CtrlPBuffer<cr>
-call rpcstart('sarsi-nvim') 
 
 augroup writing
   autocmd!

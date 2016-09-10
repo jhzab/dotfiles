@@ -20,6 +20,38 @@
   (unless (package-installed-p package)
     (package-install package)))
 
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+
+(use-package try
+  :ensure t)
+
+(use-package which-key
+  :ensure t
+  :config (which-key-mode))
+
+(use-package ivy
+  :ensure t
+  :diminish (ivy-mode)
+  :bind (("C-x b" . ivy-switch-buffer))
+  :config
+  (ivy-mode 1)
+  (setq ivy-use-virtual-buffers t)
+  (setq ivy-display-style 'fancy))
+
+(use-package swiper
+  :ensure t
+  :config (progn
+	    (global-set-key "\C-s" 'swiper)
+	    (global-set-key (kbd "C-c C-r") 'ivy-resume)))
+
+(use-package avy
+  :ensure t
+  :bind ("M-s" . avy-goto-char))
+
+(setq inhibit-startup-message t)
+
 (setq sml/theme 'dark)
 (sml/setup)
 
@@ -57,7 +89,7 @@
   dired-listing-switches "-alh"
   scroll-step 1
   ;; Less jumpy arrow key scrolling
-  scroll-conservatively 1
+  scroll-conservatively 10000
   )
 
 ; text replace: https://github.com/syohex/emacs-anzu
@@ -71,13 +103,6 @@
 ; ace-window configuration
 ; https://github.com/abo-abo/ace-window
 (global-set-key (kbd "M-p") 'ace-window)
-
-; swiper is a replacement for isearch
-(global-set-key "\C-s" 'swiper)
-(global-set-key (kbd "C-c j") 'avy-goto-word-or-subword-1)
-
-; avy
-(global-set-key (kbd "C-:") 'avy-goto-char)
 
 ; ido
 (ido-mode 1)
@@ -136,5 +161,3 @@
 
 
 (add-hook 'haskell-mode-hook 'intero-mode)
-
-(load-theme 'ample-light t t)
