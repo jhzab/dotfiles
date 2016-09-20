@@ -1,11 +1,13 @@
 (setq custom-file "~/.emacs-custom.el")
 (load custom-file 'noerror)
 
-(setq package-list '(ensime magit flyspell flycheck neotree avy ace-window scala-mode git-gutter monokai-theme anzu flx-ido swiper smart-mode-line ample-theme projectile smex ido-ubiquitous haskell-mode intero flatui-theme))
+(setq package-list '(magit flyspell flycheck neotree ace-window scala-mode git-gutter monokai-theme anzu flx-ido swiper smart-mode-line ample-theme projectile smex ido-ubiquitous flatui-theme))
 
 (require 'package) ;; You might already have this line
 (add-to-list 'package-archives
              '("melpa" . "https://melpa.org/packages/"))
+(add-to-list 'package-archives
+             '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 (when (< emacs-major-version 24)
   ;; For important compatibility libraries like cl-lib
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
@@ -31,6 +33,20 @@
   :ensure t
   :config (which-key-mode))
 
+(use-package flx-ido
+  :demand
+  :init
+  (setq
+   ido-enable-flex-matching t
+   ;; C-d to open directories
+   ;; C-f to revert to find-file
+   ido-show-dot-for-dired nil
+   ido-enable-dot-prefix t)
+  :config
+  (ido-mode 1)
+  (ido-everywhere 1)
+  (flx-ido-mode 1))
+
 (use-package ivy
   :ensure t
   :diminish (ivy-mode)
@@ -49,6 +65,36 @@
 (use-package avy
   :ensure t
   :bind ("M-s" . avy-goto-char))
+
+(use-package intero
+  :ensure t
+  :config
+  (add-hook 'haskell-mode-hook 'intero-mode))
+
+(use-package haskell-mode
+  :ensure t)
+
+(use-package ensime
+  :pin melpa-stable)
+
+(use-package company
+  :diminish company-mode
+  :commands company-mode
+  :init
+  (setq
+   company-dabbrev-ignore-case nil
+   company-dabbrev-code-ignore-case nil
+   company-dabbrev-downcase nil
+   company-idle-delay 0
+   company-minimum-prefix-length 4)
+  :config
+  ;; disables TAB in company-mode, freeing it for yasnippet
+  (define-key company-active-map [tab] nil)
+  (define-key company-active-map (kbd "TAB") nil))
+
+(use-package popup-imenu
+  :commands popup-imenu
+  :bind ("M-i" . popup-imenu))
 
 (setq inhibit-startup-message t)
 
@@ -103,15 +149,6 @@
 ; ace-window configuration
 ; https://github.com/abo-abo/ace-window
 (global-set-key (kbd "M-p") 'ace-window)
-
-; ido
-(ido-mode 1)
-(ido-everywhere 1)
-
-;ido-flx
-(flx-ido-mode 1)
-;(setq ido-enable-flex-matching t)
-(setq ido-use-faces nil)
 
 ; ido-ubiquitious
 (ido-ubiquitous-mode 1)
