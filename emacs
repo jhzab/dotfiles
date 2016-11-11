@@ -1,26 +1,13 @@
 (setq custom-file "~/.emacs-custom.el")
 (load custom-file 'noerror)
-
-(setq package-list '(magit flyspell flycheck neotree ace-window scala-mode git-gutter monokai-theme anzu flx-ido swiper smart-mode-line ample-theme projectile smex ido-ubiquitous flatui-theme))
+(setq ensime-startup-snapshot-notification nil)
 
 (require 'package) ;; You might already have this line
 (add-to-list 'package-archives
-             '("melpa" . "https://melpa.org/packages/"))
-(add-to-list 'package-archives
              '("melpa-stable" . "https://stable.melpa.org/packages/") t)
-(when (< emacs-major-version 24)
-  ;; For important compatibility libraries like cl-lib
-  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
+(add-to-list 'package-archives
+             '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize) ;; You might already have this line
-
-; fetch the list of packages available 
-(unless package-archive-contents
-  (package-refresh-contents))
-
-; install the missing packages
-(dolist (package package-list)
-  (unless (package-installed-p package)
-    (package-install package)))
 
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
@@ -75,11 +62,13 @@
   :ensure t)
 
 (use-package ensime
+  :ensure t
   :pin melpa-stable)
 
 (use-package company
   :diminish company-mode
   :commands company-mode
+  :ensure t
   :init
   (setq
    company-dabbrev-ignore-case nil
@@ -96,6 +85,20 @@
   :commands popup-imenu
   :bind ("M-i" . popup-imenu))
 
+(use-package flycheck :ensure t)
+(use-package magit :ensure t)
+(use-package flyspell :ensure t)
+(use-package neotree :ensure t)
+(use-package ace-window :ensure t)
+(use-package smex :ensure t)
+(use-package scala-mode :ensure t)
+(use-package git-gutter :ensure t)
+(use-package anzu :ensure t)
+(use-package smex :ensure t)
+(use-package smart-mode-line :ensure t)
+(use-package projectile :ensure t)
+(use-package ido-ubiquitous :ensure t)
+
 (setq inhibit-startup-message t)
 
 (setq sml/theme 'dark)
@@ -105,6 +108,8 @@
 
 ; less GC overhead
 (setq gc-cons-threshold 12000000)
+
+(setq next-screen-context-lines 4)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
