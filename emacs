@@ -203,3 +203,11 @@
 
 
 (add-hook 'haskell-mode-hook 'intero-mode)
+
+(electric-pair-mode 1)
+(setq electric-pair-pairs '(
+                            (?\" . ?\")
+                            (?\` . ?\`)
+                            (?\( . ?\))
+                            (?\{ . ?\})
+                            ) )
