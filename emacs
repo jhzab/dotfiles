@@ -21,6 +21,7 @@
   :config (which-key-mode))
 
 (use-package flx-ido
+  :ensure t
   :demand
   :init
   (setq
