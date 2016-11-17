@@ -98,6 +98,7 @@
 (use-package smart-mode-line :ensure t)
 (use-package projectile :ensure t)
 (use-package ido-ubiquitous :ensure t)
+(use-package rust-mode :ensure t)
 
 (setq inhibit-startup-message t)
 
