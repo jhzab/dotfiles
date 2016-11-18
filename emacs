@@ -9,6 +9,9 @@
              '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize) ;; You might already have this line
 
+;(use-package benchmark-init)
+;(benchmark-init/activate)
+
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
@@ -56,6 +59,7 @@
 
 (use-package intero
   :ensure t
+  :defer t
   :config
   (add-hook 'haskell-mode-hook 'intero-mode))
 
@@ -64,6 +68,7 @@
 
 (use-package ensime
   :ensure t
+  :defer t
   :pin melpa-stable)
 
 (use-package company
@@ -86,9 +91,18 @@
   :commands popup-imenu
   :bind ("M-i" . popup-imenu))
 
-(use-package flycheck :ensure t)
-(use-package magit :ensure t)
 (use-package flyspell :ensure t)
+(use-package magit
+  :ensure t
+  :defer t
+  :config
+  (add-hook 'programming-mode-hook 'magit-mode)
+  )
+(use-package flycheck
+  :ensure t
+  :defer t
+  :config
+  (add-hook 'programming-mode-hook 'flycheck-mode))
 (use-package neotree :ensure t)
 (use-package ace-window :ensure t)
 (use-package smex :ensure t)
