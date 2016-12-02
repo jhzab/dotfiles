@@ -169,7 +169,7 @@
 
 ; ace-window configuration
 ; https://github.com/abo-abo/ace-window
-(global-set-key (kbd "M-p") 'ace-window)
+(global-set-key (kbd "M-o") 'ace-window)
 
 ; ido-ubiquitious
 (ido-ubiquitous-mode 1)
@@ -183,40 +183,6 @@
   (add-hook hook (lambda () (flyspell-mode 1))))
 (dolist (hook '(change-log-mode-hook log-edit-mode-hook))
   (add-hook hook (lambda () (flyspell-mode -1))))
-
-
-(setq gnus-select-method
-      '(nnimap "l3s"
-               (nnimap-address "mail.l3s.uni-hannover.de")
-               (nnimap-server-port 993)
-               (nnimap-stream ssl)))
-
-(setq gnus-thread-sort-functions
-      '(gnus-thread-sort-by-number
-        gnus-thread-sort-by-most-recent-date)
-      gnus-sort-gathered-threads-function 'gnus-thread-sort-by-date)
-
-(setq gnus-use-cache t)
-(setq gnus-summary-thread-gathering-function
-      'gnus-gather-threads-by-subject)
-;(setq gnus-thread-hide-subtree t)
-(setq gnus-thread-ignore-subject t)
-
-(setq gnus-user-date-format-alist
-          '(((gnus-seconds-today) . "Today, %H:%M")
-            ((+ 86400 (gnus-seconds-today)) . "Yesterday, %H:%M")
-            (604800 . "%A %H:%M") ;;that's one week
-            ((gnus-seconds-month) . "%A %d")
-            ((gnus-seconds-year) . "%B %d")
-            (t . "%B %d '%y"))) ;;this one is used when no other does match
-
-;(setq gnus-summary-line-format 
-;  "%U%R: %&user-date; | %~(pad-right 25)~(max-right 25)a | %I%~(max-right 50)S \n")
-
-(setq gnus-summary-line-format
-      (concat "%U%R %~(pad-right 2)t%* %B%~(max-right 30)~(pad-right 30)n  "
-              "%~(max-right 90)~(pad-right 90)s %-135=%&user-date;\n"))
-
 
 (add-hook 'haskell-mode-hook 'intero-mode)
 
