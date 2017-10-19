@@ -1,18 +1,15 @@
 call plug#begin('~/.config/nvim/bundle')
 
+
 " original repos on github
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-abolish'
-Plug 'rstacruz/sparkup', {'rtp': 'vim/'}
-Plug 'vim-ruby/vim-ruby'
-Plug 'mileszs/ack.vim'
-Plug 'tpope/vim-surround'
+"Plug 'rstacruz/sparkup', {'rtp': 'vim/'}
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
-Plug 'L9'
-Plug 'FuzzyFinder'
 Plug 'scrooloose/syntastic'
 Plug 'klen/python-mode'
+"Plug 'davidhalter/jedi-vim'
+Plug 'zchee/deoplete-jedi'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'w0ng/vim-hybrid'
 Plug 'vim-airline/vim-airline'
@@ -22,33 +19,22 @@ Plug 'easymotion/vim-easymotion'
 " like the one above, but with two chars
 Plug 'justinmk/vim-sneak'
 " following is for snippets only
-Plug 'MarcWeber/vim-addon-mw-utils'
-Plug 'tomtom/tlib_vim'
-Plug 'garbas/vim-snipmate'
-Plug 'honza/vim-snippets'
 " awesome completion with syntastic integration
-Plug 'Valloric/YouCompleteMe'
-Plug 'tpope/vim-haml'
-Plug 'othree/html5.vim'
-Plug 'derekwyatt/vim-scala'
-Plug 'zhaocai/GoldenView.Vim'
-Plug 'Shougo/unite.vim'
-Plug 'ensime/ensime-vim'
-Plug 'Shougo/deoplete.nvim'
+"Plug 'zhaocai/GoldenView.Vim'
+Plug 'Shougo/denite.nvim'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'eagletmt/neco-ghc'
 Plug 'eagletmt/ghcmod-vim'
 Plug 'neovimhaskell/haskell-vim'
-Plug 'altercation/vim-colors-solarized'
 Plug 'airblade/vim-gitgutter'
-Plug 'crusoexia/vim-monokai'
-Plug 'aloiscochard/sarsi'
-Plug 'Shougo/vimproc.vim'
 Plug 'reedes/vim-pencil'
 Plug 'junegunn/limelight.vim'
 Plug 'reedes/vim-wordy'
 Plug 'reedes/vim-lexical'
 Plug 'reedes/vim-colors-pencil'
 Plug 'lervag/vimtex'
+Plug 'rust-lang/rust.vim'
+Plug 'racer-rust/vim-racer'
 
 call plug#end()
 
@@ -69,9 +55,12 @@ set wildmenu
 set wildmode=longest:full,full
 set wildignore+=tags
 set winaltkeys=no
+set guicursor=
+set number
+set cursorline
 
-set background=light
-colorscheme pencil
+set background=dark
+colorscheme hybrid
 
 " open nerdtree
 noremap <Leader>n :NERDTreeToggle<CR>
@@ -85,27 +74,25 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_enable_signs=1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
-let g:ycm_autoclose_preview_window_after_completion=1
-
-" start NERDtree if no files/arguments were specified
-autocmd vimenter * if !argc() | NERDTree | endif
-" close vim if NERDtree is last open window
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-
-let g:pymode_rope_complete_on_dot = 0
-
 " seek
 let g:seek_enable_jumps = 1
 
 " Disable haskell-vim omnifunc, this is done by necoghc
 let g:haskellmode_completion_ghc = 0
 autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+
+" autocmd FileType python setlocal foldmethod=indent
+"autocmd FileType python setlocal foldmethod=indent
+autocmd FileType python setlocal tabstop=4
+autocmd FileType python setlocal softtabstop=4
+autocmd FileType python setlocal shiftwidth=4
+autocmd FileType python setlocal textwidth=79
+autocmd FileType python setlocal expandtab
+autocmd FileType python setlocal autoindent
+autocmd FileType python setlocal fileformat=unix
+
+let g:pymode_python = 'python3'
+let g:pymode_rope = 0
 
 let g:airline#extensions#tabline#enabled = 1
 
@@ -127,3 +114,6 @@ augroup writing
   autocmd FileType text call pencil#init()
                             \ | call lexical#init()
 augroup END
+
+let g:jedi#force_py_version = 3
+let g:deoplete#sources#jedi#python_path = "/usr/bin/python3"
