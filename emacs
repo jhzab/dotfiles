@@ -17,15 +17,14 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
-(use-package try
-  :ensure t)
+(setq use-package-always-ensure t)
+
+(use-package try)
 
 (use-package which-key
-  :ensure t
   :config (which-key-mode))
 
 (use-package flx-ido
-  :ensure t
   :demand
   :init
   (setq
@@ -40,7 +39,6 @@
   (flx-ido-mode 1))
 
 (use-package ivy
-  :ensure t
   :diminish (ivy-mode)
   :bind (("C-x b" . ivy-switch-buffer))
   :config
@@ -49,12 +47,11 @@
   (setq ivy-display-style 'fancy))
 
 (use-package swiper
-  :ensure t
   :config (progn
 	    (global-set-key "\C-s" 'swiper)
 	    (global-set-key (kbd "C-c C-r") 'ivy-resume)))
+	    
 (use-package counsel
-  :ensure t
   :bind ("M-x" . counsel-M-x)
   :bind ("C-c s" . counsel-ag)
   :bind ("C-c C-f" . counsel-find-file))
@@ -63,26 +60,20 @@
 (use-package smex)
 
 (use-package avy
-  :ensure t
   :bind ("M-s" . avy-goto-char))
 
 (use-package intero
-  :ensure t
   :defer t
   :config
   (add-hook 'haskell-mode-hook 'intero-mode))
 
-(use-package haskell-mode
-  :ensure t)
+(use-package haskell-mode)
 
-(use-package ensime
-  :ensure t
-  :pin melpa-stable)
+(use-package ensime)
 
 (use-package company
   :diminish company-mode
   :commands global-company-mode
-  :ensure t
   :init
   (setq
    company-dabbrev-ignore-case nil
@@ -104,35 +95,32 @@
 
 (use-package flyspell :ensure t)
 (use-package magit
-  :ensure t
   :defer t
   :config
   (add-hook 'programming-mode-hook 'magit-mode)
   )
 (use-package flycheck
-  :ensure t
   :defer t
   :config
   (add-hook 'programming-mode-hook 'flycheck-mode))
-(use-package neotree :ensure t)
-(use-package ace-window :ensure t)
-(use-package scala-mode :ensure t)
-(use-package git-gutter :ensure t)
-(use-package anzu :ensure t)
-(use-package smart-mode-line :ensure t)
-(use-package projectile :ensure t)
-(use-package ido-completing-read+ :ensure t)
-(use-package rust-mode :ensure t)
-(use-package racer :ensure t
+(use-package dired-sidebar)
+(use-package ace-window)
+(use-package scala-mode)
+(use-package git-gutter)
+(use-package anzu)
+(use-package smart-mode-line)
+(use-package projectile)
+(use-package ido-completing-read+)
+(use-package rust-mode)
+(use-package racer
   :config
   (add-hook 'rust-mode-hook #'racer-mode))
-(use-package company-racer :ensure t
+(use-package company-racer
   :config
   (with-eval-after-load 'company
       (add-to-list 'company-backends 'company-racer)))
 
 (use-package rainbow-delimiters
-  :ensure t
   :config
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 
@@ -185,14 +173,12 @@
 (use-package company-jedi :ensure t)
 
 (setq jedi:environment-root "jedi")  ; or any other name you like
-(setq jedi:environment-virtualenv
-     (list "virtualenv-3" "--system-site-packages"))
+;(setq jedi:environment-virtualenv
+;     (list "virtualenv-3" "--system-site-packages"))
+(setq jedi:environment-virtualenv (list (expand-file-name "~/.emacs.d/.python-environments/")))     
 (setq jedi:complete-on-dot t) 
 
-(defun my/python-mode-hook ()
-  (add-to-list 'company-backends 'company-jedi))
-
-(add-hook 'python-mode-hook 'my/python-mode-hook)
+(add-hook 'company-backends 'company-jedi)
 
 ;flyspell
 
@@ -202,6 +188,9 @@
   (add-hook hook (lambda () (flyspell-mode -1))))
 
 (add-hook 'haskell-mode-hook 'intero-mode)
+
+(setq org-agenda-files (list "~/org/work.org"
+			      "~/org/default.org"))
 
 (electric-pair-mode 1)
 (setq electric-pair-pairs '(
@@ -238,7 +227,7 @@
 
 (setq mu4e-get-mail-command "mbsync -c ~/.mbsyncrc uni"
       ;mu4e-html2text-command "w3m -T text/html"
-      mu4e-update-interval 120
+      mu4e-update-interval 180
       mu4e-headers-auto-update t
       mu4e-compose-in-new-frame t
       mu4e-sent-messages-behavior 'sent
@@ -353,3 +342,7 @@ You need to add `Content-Type' to `nnmail-extra-headers' and
 (global-set-key (kbd "<f7>")   'fd-switch-dictionary)
 
 (load-theme 'dracula)
+
+(setq org-clock-persist 'history)
+(org-clock-persistence-insinuate)
+(setq org-clock-persist t)
