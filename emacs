@@ -69,8 +69,6 @@
 
 (use-package haskell-mode)
 
-(use-package ensime)
-
 (use-package company
   :diminish company-mode
   :commands global-company-mode
@@ -93,7 +91,7 @@
   :commands popup-imenu
   :bind ("M-i" . popup-imenu))
 
-(use-package flyspell :ensure t)
+(use-package flyspell)
 (use-package magit
   :defer t
   :config
@@ -105,7 +103,6 @@
   (add-hook 'programming-mode-hook 'flycheck-mode))
 (use-package dired-sidebar)
 (use-package ace-window)
-(use-package scala-mode)
 (use-package git-gutter)
 (use-package anzu)
 (use-package smart-mode-line)
@@ -123,6 +120,9 @@
 (use-package rainbow-delimiters
   :config
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+
+(use-package org)
+(use-package gnus)
 
 (setq inhibit-startup-message t)
 
@@ -170,7 +170,7 @@
 ; ido-ubiquitious
 (ido-ubiquitous-mode 1)
 
-(use-package company-jedi :ensure t)
+(use-package company-jedi)
 
 (setq jedi:environment-root "jedi")  ; or any other name you like
 ;(setq jedi:environment-virtualenv
@@ -186,6 +186,8 @@
   (add-hook hook (lambda () (flyspell-mode 1))))
 (dolist (hook '(change-log-mode-hook log-edit-mode-hook))
   (add-hook hook (lambda () (flyspell-mode -1))))
+(add-hook 'message-mode-hook (flyspell-mode 1))
+
 
 (add-hook 'haskell-mode-hook 'intero-mode)
 
@@ -258,7 +260,10 @@
       '(nnimap "L3S"
 	       (nnimap-address "mail.l3s.uni-hannover.de")  ; it could also be imap.googlemail.com if that's your server.
 	       (nnimap-server-port "imaps")
-	       (nnimap-stream ssl)))
+	       (nnimap-stream ssl)
+	       (nnmail-expiry-target "nnimap+L3S:INBOX.Trash")
+	       (nnmail-expiry-wait 7)
+	       ))
 
 (defun gnus-user-format-function-@ (header)
   "Display @ for message with attachment in summary line.
@@ -278,9 +283,9 @@ You need to add `Content-Type' to `nnmail-extra-headers' and
   (interactive)
   (setq gnus-summary-line-format
         (concat
-         "%0{%U%R%z%}" "%10{│%}" "%1{%&user-date;%}" "%10{│%}"
-         "%9{%u&@;%}" "%(%-20,20f %)" "%10{│%}" "%4k" "%10{│%}"
-         "%10{%B%}" "%s\n"))
+         "%0{%U%R%z%}" "│" "%1{%&user-date;%}" "│"
+         "%u&@;" "%(%-20,20f %)" "│" "%4k" "│"
+         "%B" "%s\n"))
   (setq
    gnus-sum-thread-tree-single-indent   "◎ "
    gnus-sum-thread-tree-false-root      "  "
@@ -291,26 +296,8 @@ You need to add `Content-Type' to `nnmail-extra-headers' and
    gnus-sum-thread-tree-indent          "  ")
   )
 
-(defun oxy-unicode-threads-heavy ()
-  (interactive)
-  (setq gnus-summary-line-format "%10{%4k│%}%0{%U%R%z%u&@;%}%10{│%}%*%-23,23f%10{║%} %10{%B%} %(%s%)\n"
-        gnus-summary-dummy-line-format "    %8{│%}    %(%8{│%}                       %10{║%}%) %10{┏○%}  %S\n"
-        gnus-sum-thread-tree-indent " "
-        gnus-sum-thread-tree-root "┏● "
-        gnus-sum-thread-tree-false-root "　○ "
-        gnus-sum-thread-tree-single-indent "　● "
-        gnus-sum-thread-tree-leaf-with-other "┣━━❯ "
-        gnus-sum-thread-tree-vertical "┃"
-        gnus-sum-thread-tree-single-leaf "┗━━❯ "))
-
 (setq gnus-user-date-format-alist
       '((t . "%Y-%m-%d %T")))
-
-(copy-face 'font-lock-constant-face 'gnus-face-8)
-(set-face-foreground 'gnus-face-8 "gray50")
-(setq gnus-face-8 'gnus-face-8)
-(setq gnus-face-9 'font-lock-warning-face)
-(setq gnus-face-10 'shadow)
 
 (sdl-gnus-summary-line-format-unicode)
 
@@ -321,7 +308,8 @@ You need to add `Content-Type' to `nnmail-extra-headers' and
 (setq gnus-summary-display-while-building nil)
 (setq gnus-summary-make-false-root 'dummy)
 (setq gnus-fetch-old-headers 'some)
-
+(setq gnus-check-new-newsgroups nil)
+(setq gnus-use-cache t)
 (setq gnus-summary-gather-subject-limit 'fuzzy)
 (setq gnus-simplify-subject-functions '(gnus-simplify-subject-re
                                         gnus-simplify-subject-fuzzy
@@ -330,6 +318,30 @@ You need to add `Content-Type' to `nnmail-extra-headers' and
 (setq gnus-list-identifiers "\\[go-nuts\\] *\\|\\[golang-dev\\] *")
 (setq gnus-summary-thread-gathering-function
       'gnus-gather-threads-by-references)
+
+(setq gnus-message-archive-group "nnimap+L3S:INBOX.Sent")
+
+
+(use-package bbdb
+  :config
+  (bbdb-initialize 'gnus 'message)
+  (bbdb-mua-auto-update-init 'gnus 'message) ;; use 'gnus for incoming messages too
+  (setq bbdb-mua-auto-update-p 'create) ;; or 'query/'create to create with/out asking
+  (setq bbdb-message-all-addresses t
+	;bbdb-completion-list t
+	;bbdb-complete-mail-allow-cycling t
+	bbdb-north-american-phone-numbers-p nil
+	bbdb-mua-pop-up nil)
+  (add-hook 'gnus-startup-hook 'bbdb-insinuate-gnus)
+  (add-hook 'message-mode-hook 'bbdb-insinuate-message)
+  )
+
+(setq gnus-parameters
+      '((".*"
+         (gcc-self . t))))
+
+(setq message-citation-line-function 'message-insert-formatted-citation-line)
+(setq message-citation-line-format "On %a, %b %d %Y, %f wrote:\n")
 
 (defun fd-switch-dictionary()
   (interactive)
@@ -340,8 +352,7 @@ You need to add `Content-Type' to `nnmail-extra-headers' and
     ))
 
 (global-set-key (kbd "<f7>")   'fd-switch-dictionary)
-
-(load-theme 'dracula)
+; (setq gnus-face-10 'shadow)
 
 (setq org-clock-persist 'history)
 (org-clock-persistence-insinuate)
